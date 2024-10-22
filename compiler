@@ -25,7 +25,7 @@ def generate_attributes(token_id):
 # Function to generate unique names for each NFT
 def generate_nft_name(token_id):
     # Example of unique naming logic (you can replace or expand this logic)
-    base_name = "Mystic Creature"  # You can change this base name
+    base_name = "Boxer Punks"  # You can change this base name
     return f"{base_name} #{token_id}"
 
 # Create a directory to save metadata files
