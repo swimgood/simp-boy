@@ -1,0 +1,36 @@
+import json
+
+# Define a function to compile NFT metadata
+def compile_nft_metadata(token_id, name, description, image_url, attributes):
+    metadata = {
+        "name": name,
+        "description": description,
+        "image": image_url,
+        "attributes": attributes,
+        "tokenId": token_id
+    }
+    return metadata
+
+# Example metadata attributes for an NFT (can be customized)
+attributes = [
+    {"trait_type": "Background", "value": "Sky Blue"},
+    {"trait_type": "Body", "value": "Robot"},
+    {"trait_type": "Eyes", "value": "Laser"},
+    {"trait_type": "Outfit", "value": "Space Suit"},
+    {"trait_type": "Accessories", "value": "Jetpack"}
+]
+
+# Compile metadata for one NFT
+nft_metadata = compile_nft_metadata(
+    token_id=1,
+    name="Robo Astronaut",
+    description="A futuristic robot astronaut exploring the universe.",
+    image_url="https://example.com/nft-images/robo-astronaut.png",
+    attributes=attributes
+)
+
+# Save metadata as a JSON file
+with open('nft_metadata.json', 'w') as json_file:
+    json.dump(nft_metadata, json_file, indent=4)
+
+print("NFT metadata compiled and saved to nft_metadata.json")
