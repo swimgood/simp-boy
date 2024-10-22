@@ -1,6 +1,7 @@
 import json
+import os
 
-# Define a function to compile NFT metadata
+# Function to compile NFT metadata
 def compile_nft_metadata(token_id, name, description, image_url, attributes):
     metadata = {
         "name": name,
@@ -11,26 +12,33 @@ def compile_nft_metadata(token_id, name, description, image_url, attributes):
     }
     return metadata
 
-# Example metadata attributes for an NFT (can be customized)
-attributes = [
-    {"trait_type": "Background", "value": "Sky Blue"},
-    {"trait_type": "Body", "value": "Robot"},
-    {"trait_type": "Eyes", "value": "Laser"},
-    {"trait_type": "Outfit", "value": "Space Suit"},
-    {"trait_type": "Accessories", "value": "Jetpack"}
-]
+# Example of customizable metadata attributes for NFTs
+def generate_attributes(token_id):
+    # Customize the traits per NFT, you can use randomness to make them unique
+    return [
+        {"trait_type": "Background", "value": f"Color {token_id % 5}"},  # Cycles through 5 colors
+        {"trait_type": "Body", "value": f"Type {token_id % 10}"},         # Cycles through 10 body types
+        {"trait_type": "Eyes", "value": f"Style {token_id % 3}"},         # Cycles through 3 eye styles
+        {"trait_type": "Outfit", "value": f"Outfit {token_id % 7}"},      # Cycles through 7 outfits
+        {"trait_type": "Accessories", "value": f"Accessory {token_id % 4}"} # Cycles through 4 accessories
+    ]
 
-# Compile metadata for one NFT
-nft_metadata = compile_nft_metadata(
-    token_id=1,
-    name="Robo Astronaut",
-    description="A futuristic robot astronaut exploring the universe.",
-    image_url="https://example.com/nft-images/robo-astronaut.png",
-    attributes=attributes
-)
+# Create a directory to save all metadata files
+if not os.path.exists('nft_metadata'):
+    os.makedirs('nft_metadata')
 
-# Save metadata as a JSON file
-with open('nft_metadata.json', 'w') as json_file:
-    json.dump(nft_metadata, json_file, indent=4)
+# Generate 420 NFTs
+for token_id in range(1, 421):
+    nft_metadata = compile_nft_metadata(
+        token_id=token_id,
+        name=f"NFT #{token_id}",
+        description=f"NFT #{token_id} is part of a 420-strong collection of unique digital assets.",
+        image_url=f"https://example.com/nft-images/nft-{token_id}.png",  # Example image URL
+        attributes=generate_attributes(token_id)
+    )
 
-print("NFT metadata compiled and saved to nft_metadata.json")
+    # Save each NFT metadata to a separate JSON file
+    with open(f'nft_metadata/nft_{token_id}.json', 'w') as json_file:
+        json.dump(nft_metadata, json_file, indent=4)
+
+print("Metadata for 420 NFTs compiled and saved in 'nft_metadata' folder.")
